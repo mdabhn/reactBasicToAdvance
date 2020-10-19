@@ -41,10 +41,8 @@ export default class Directory extends Component {
   render() {
     return (
       <div className='directory-menu'>
-        {this.state.sections.map(({ title, id, imageUrl, size }) => {
-          return (
-            <Menu key={id} imageUrl={imageUrl} title={title} size={size} />
-          );
+        {this.state.sections.map(({ id, ...otherProps }) => {
+          return <Menu key={id} {...otherProps} />;
         })}
       </div>
     );
