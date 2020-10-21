@@ -4,6 +4,7 @@ using -
 
 - sass
 - react router
+- Firebase
 
 First add `Browserrouter` to the `<APP/>`
 
