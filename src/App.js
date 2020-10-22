@@ -23,7 +23,7 @@ export default class App extends Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
-        console.log('userRef', userRef);
+
         userRef.onSnapshot((snapshot) => {
           this.setState({
             currentUser: {
@@ -33,8 +33,6 @@ export default class App extends Component {
           });
         });
       }
-
-      console.log('user info', user);
 
       this.setState({
         currentUser: user,
