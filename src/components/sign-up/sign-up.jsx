@@ -15,6 +15,7 @@ export default class signUp extends Component {
 
   handelSubmit = async (e) => {
     e.preventDefault();
+
     const { displayName, email, password, confrimPassword } = this.state;
 
     if (password !== confrimPassword) {
