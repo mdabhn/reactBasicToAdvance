@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import HomePage from './pages/HomePage';
 import Shop from './pages/shop/Shop';
 import Header from './components/header/Header';
-import signInSignUp from './pages/authentication/sign-in-sign-up';
+import SignInSignUp from './pages/authentication/sign-in-sign-up';
 import { setCurrentUser } from './redux/user/user.action';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
@@ -49,10 +49,22 @@ class App extends Component {
         <Header />
         <Route exact path='/' component={HomePage} />
         <Route exact path='/shop' component={Shop} />
-        <Route exact path='/sign-in' component={signInSignUp} />
+        <Route
+          exact
+          path='/sign-in'
+          render={() =>
+            this.props.currentUser ? <Redirect to='/' /> : <SignInSignUp />
+          }
+        />
       </div>
     );
   }
 }
 
-export default connect(null, { setCurrentUser })(App);
+const mapStateToProps = ({ user }) => {
+  return {
+    currentUser: user.currentUser,
+  };
+};
+
+export default connect(mapStateToProps, { setCurrentUser })(App);
