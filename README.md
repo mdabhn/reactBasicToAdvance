@@ -5,6 +5,10 @@ using -
 - sass
 - react router
 - Firebase
+- Redux
+- Redux Dev tool
+- Redux Logger
+- Reselect ( To memorize the state )
 
 First add `Browserrouter` to the `<APP/>`
 

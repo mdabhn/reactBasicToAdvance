@@ -5,8 +5,9 @@ import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 
 import { connect } from 'react-redux';
 import { changeViewState } from '../../redux/cart/cart.action';
+import { selectCartItemsCount } from '../../redux/cart/cart.selector';
 
-function cartIcon({ changeViewState }) {
+function cartIcon({ changeViewState, count }) {
   return (
     <div
       className='cart-icon'
@@ -15,9 +16,15 @@ function cartIcon({ changeViewState }) {
       }}
     >
       <ShoppingIcon className='shopping-icon' />
-      <span className='item-count'>0</span>
+      <span className='item-count'>{count}</span>
     </div>
   );
 }
 
-export default connect(null, { changeViewState })(cartIcon);
+const mapStateToProp = (state) => {
+  return {
+    count: selectCartItemsCount(state),
+  };
+};
+
+export default connect(mapStateToProp, { changeViewState })(cartIcon);
