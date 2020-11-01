@@ -6,9 +6,13 @@ import HomePage from './pages/HomePage';
 import Shop from './pages/shop/Shop';
 import Header from './components/header/Header';
 import SignInSignUp from './pages/authentication/sign-in-sign-up';
+import CheckOut from './pages/check-out/check-out';
 import { setCurrentUser } from './redux/user/user.action';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { selectCurrentUser } from './redux/user/user.seletor';
+
+import { createStructuredSelector } from 'reselect';
 
 class App extends Component {
   unsubscribeFromAuth = null;
@@ -25,13 +29,6 @@ class App extends Component {
             id: snapshot.id,
             ...snapshot.data(),
           });
-
-          // this.setState({
-          //   currentUser: {
-          //     id: snapshot.id,
-          //     ...snapshot.data(),
-          //   },
-          // });
         });
       }
 
@@ -49,6 +46,7 @@ class App extends Component {
         <Header />
         <Route exact path='/' component={HomePage} />
         <Route exact path='/shop' component={Shop} />
+        <Route exact path='/checkout' component={CheckOut} />
         <Route
           exact
           path='/sign-in'
@@ -61,10 +59,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => {
-  return {
-    currentUser: user.currentUser,
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
 
 export default connect(mapStateToProps, { setCurrentUser })(App);

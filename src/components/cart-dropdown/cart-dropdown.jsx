@@ -5,14 +5,26 @@ import './cart-dropdown.scss';
 import CartItem from '../cart-item/cart-item';
 import { selectCartItems } from '../../redux/cart/cart.selector';
 
-const cartDropdown = ({ cartItems }) => {
+import { changeViewState } from '../../redux/cart/cart.action';
+
+import { withRouter } from 'react-router-dom';
+
+const cartDropdown = ({ cartItems, history, changeViewState }) => {
   return (
     <div className='cart-dropdown'>
       <div className='cart-items' />
       {cartItems.map((item) => {
         return <CartItem key={item.id} item={item} />;
       })}
-      <CustomButton inverted>GO TO CHECKOUT</CustomButton>
+      <CustomButton
+        inverted
+        onClick={() => {
+          changeViewState();
+          history.push('/checkout');
+        }}
+      >
+        GO TO CHECKOUT
+      </CustomButton>
     </div>
   );
 };
@@ -23,4 +35,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(cartDropdown);
+export default withRouter(
+  connect(mapStateToProps, { changeViewState })(cartDropdown)
+);
