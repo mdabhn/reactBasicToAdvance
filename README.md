@@ -9,6 +9,7 @@ using -
 - Redux Dev tool
 - Redux Logger
 - Reselect ( To memorize the state )
+- redux-persist ( This help to store information locally on localStorage)
 
 First add `Browserrouter` to the `<APP/>`
 
